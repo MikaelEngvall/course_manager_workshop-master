@@ -6,9 +6,10 @@ import org.junit.jupiter.api.Test;
 public class CourseTest {
 
     @Test
-    @DisplayName("Make sure that new course get right Id")
-    public void validateCourseIdSequencer() {
-        Student student = new Student("Mikael Engvall", "mikael@engvall.org", "Vallgatan 22");
+    @DisplayName("Checks if the enrollment method populates the Course set")
+    public void checkingEnrollmentMethod() {
+        Student mikael = new Student("Mikael Engvall", "mikael@engvall.org", "Vallgatan 22");
+        Student anders = new Student("Anders Loren", "anders@engvall.org", "Vallgatan 22");
 
 //        StudentCollectionRepository studentCollectionRepository = new StudentCollectionRepository();
 
