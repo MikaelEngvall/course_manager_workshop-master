@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import se.lexicon.course_manager_assignment.data.sequencers.StudentSequencer;
+import se.lexicon.course_manager_assignment.model.Course;
 import se.lexicon.course_manager_assignment.model.Student;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -33,9 +34,20 @@ public class StudentCollectionRepositoryTest {
 
     @Test
     public void createNewStudent() {
-        Student student = new Student("Mikael Engvall", "mikael@engvall.org", "Vallgatan 22");
-
-
+        Student student = new Student(StudentSequencer.nextStudentId(), "Mikael Engvall", "mik@gmail.com", "Vallis 22");
+        Student student2 = new Student(StudentSequencer.nextStudentId(), "Anders Engvall", "mik@gmail.com", "Vallis 22");
+        
+        Course course = new Course();
+        course.enrollStudent(student);
+        course.enrollStudent(student2);
+        
+        StudentCollectionRepository studentCollectionRepository = new StudentCollectionRepository(course.getStudents());
+//        studentCollectionRepository.createStudent(student.getName(), student.getEmail(), student.getAddress());
+//        
+//        course.enrollStudent(student);
+//        course.enrollStudent(student2);
+//        System.out.println(course.toString());
+        System.out.println(studentCollectionRepository.toString());
 
     }
 }
