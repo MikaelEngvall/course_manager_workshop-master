@@ -1,9 +1,8 @@
 package se.lexicon.course_manager_assignment.model;
 
-import se.lexicon.course_manager_assignment.data.sequencers.CourseSequencer;
-
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
 
 public class Course {
@@ -13,22 +12,41 @@ public class Course {
     private int weekDuration;
     private Collection<Student> students; //All the participants (enrolled students)
 
-    //Methods
-    public boolean enrollStudent(Student student) { // This adds a student to the course
-        return students.add(student);
-    }
-    public boolean unenrollStudent(Student student) {
-        return students.remove(student);
-    }
-
     //Constructors
 
-    public Course(LocalDate startDate, String courseName, int weekDuration, Collection<Student> students) {
-        this.id = CourseSequencer.nextCourseId();
+    public Course() {
+        students = new HashSet<>();
+    }
+
+    public Course(String courseName, LocalDate startDate, int weekDuration) {
+        this();
+        this.courseName = courseName;
+        this.startDate = startDate;
+        this.weekDuration = weekDuration;
+    }
+
+    public Course(int id, LocalDate startDate, String courseName, int weekDuration) {
+        this.id = id;
         this.startDate = startDate;
         this.courseName = courseName;
         this.weekDuration = weekDuration;
-        this.students = students;
+    }
+
+    //Methods
+    public boolean enrollStudent(Student student) {
+
+        return this.students.add(student);
+        // step1: validate the method parameters
+        // step2: check the collections if it was null -> instantiate it
+        // step3: check if student exist then add to collection
+        // step4: return true
+        // end: return false
+
+//        return false; //todo: implement this correct
+    }
+
+    public boolean unenrollStudent(Student student) {
+        return students.remove(student);
     }
 
     @Override
@@ -59,7 +77,6 @@ public class Course {
     public int getId() {
         return id;
     }
-
 
     public LocalDate getStartDate() {
         return startDate;

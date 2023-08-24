@@ -1,12 +1,10 @@
 package se.lexicon.course_manager_assignment.data.dao;
 
-
-
+import se.lexicon.course_manager_assignment.data.sequencers.StudentSequencer;
 import se.lexicon.course_manager_assignment.model.Student;
 
 import java.util.Collection;
 import java.util.HashSet;
-
 
 public class StudentCollectionRepository implements StudentDao {
 
@@ -18,7 +16,9 @@ public class StudentCollectionRepository implements StudentDao {
 
     @Override
     public Student createStudent(String name, String email, String address) {
-        return null; //todo implement this
+        Student student = new Student(StudentSequencer.nextStudentId(), name, email, address);
+        students.add(student);
+        return student;
     }
 
     @Override

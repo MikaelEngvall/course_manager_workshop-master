@@ -1,7 +1,5 @@
 package se.lexicon.course_manager_assignment.model;
 
-import se.lexicon.course_manager_assignment.data.sequencers.StudentSequencer;
-
 import java.util.Objects;
 
 public class Student {
@@ -10,16 +8,23 @@ public class Student {
     private String email;
     private String address;
 
-    //Methods
-
     //Constructors
+    public Student() {
+    }
 
     public Student(String name, String email, String address) {
-        this.id = StudentSequencer.nextStudentId();
         this.name = name;
         this.email = email;
         this.address = address;
     }
+
+    public Student(int id, String name, String email, String address) {
+        this.name = name;
+        this.email = email;
+        this.address = address;
+    }
+
+    //Methods
 
     @Override
     public boolean equals(Object o) {
@@ -50,7 +55,6 @@ public class Student {
     public int getId() {
         return id;
     }
-
 
     public String getName() {
         return name;
