@@ -1,61 +1,30 @@
 package se.lexicon.course_manager_assignment.model;
 
-import se.lexicon.course_manager_assignment.data.sequencers.StudentSequencer;
-
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Student {
-    private int id;
+public class Student implements Serializable {
+
+    // Fields
+    private Integer id;
     private String name;
     private String email;
     private String address;
 
-    //Constructors
+    //Constructor(s)
     public Student() {
     }
 
-    public Student(String name, String email, String address) {
-        this.id = StudentSequencer.nextStudentId();
+    public Student(Integer id, String name, String email, String address) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.address = address;
     }
 
-    public Student(int id, String name, String email, String address) {
-        this.name = name;
-        this.email = email;
-        this.address = address;
-    }
+    // Getters & Setters
 
-    //Methods
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Student)) return false;
-        Student student = (Student) o;
-        return id == student.id && Objects.equals(name, student.name) && Objects.equals(email, student.email) && Objects.equals(address, student.address);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, email, address);
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
-
-//Getters and Setters
-
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -81,5 +50,28 @@ public class Student {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return id == student.id && Objects.equals(name, student.name) && Objects.equals(email, student.email) && Objects.equals(address, student.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, email, address);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }

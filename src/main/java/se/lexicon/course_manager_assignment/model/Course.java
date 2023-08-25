@@ -5,85 +5,82 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 
-public class Course {
-    private int id;
-    private LocalDate startDate;
+import java.io.Serializable;
+
+public class Course implements Serializable{
+
+    // Fields
+    private Integer id;
     private String courseName;
-    private int weekDuration;
-    private Collection<Student> students; //All the participants (enrolled students)
+    private LocalDate startDate;
+    private Integer weekDuration;
+    private Collection<Student> students;
 
-    //Constructors
-
+    //Constructor(s)
     public Course() {
-        students = new HashSet<>();
     }
 
-    public Course(String courseName, LocalDate startDate, int weekDuration) {
-        this();
-        this.courseName = courseName;
-        this.startDate = startDate;
-        this.weekDuration = weekDuration;
-    }
-
-    public Course(int id, LocalDate startDate, String courseName, int weekDuration) {
+    public Course(Integer id, String courseName, LocalDate startDate, Integer weekDuration) {
         this.id = id;
-        this.startDate = startDate;
         this.courseName = courseName;
+        this.startDate = startDate;
         this.weekDuration = weekDuration;
+        this.students = new HashSet<>();
     }
 
     //Methods
     public boolean enrollStudent(Student student) {
-
+        if (student.getName() == null || student.getEmail() == null || student.getAddress() == null ) {
+            students = new HashSet<>();
+            return false;
+        }
+        for (Student element : students) {
+            if (student.equals(element)) {
+                return false;
+            }
+        }
         return this.students.add(student);
-        // step1: validate the method parameters
-        // step2: check the collections if it was null -> instantiate it
-        // step3: check if student exist then add to collection
-        // step4: return true
-        // end: return false
-
-//        return false; //todo: implement this correct
     }
 
-    public boolean unenrollStudent(Student student) {
-        return students.remove(student);
+    public boolean unrollStudent(Student student) {
+        for (Student element : students) {
+            if (student.equals(element)) {
+                return this.students.remove(student);
+            }
+        }
+        return false;
     }
+
+    // Overridden methods
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Course)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Course course = (Course) o;
-        return id == course.id && weekDuration == course.weekDuration && Objects.equals(startDate, course.startDate) && Objects.equals(courseName, course.courseName) && Objects.equals(students, course.students);
+        return id == course.id && weekDuration == course.weekDuration && Objects.equals(courseName, course.courseName) && Objects.equals(startDate, course.startDate) && Objects.equals(students, course.students);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, startDate, courseName, weekDuration, students);
+        return Objects.hash(id, courseName, startDate, weekDuration, students);
     }
 
     @Override
     public String toString() {
         return "Course{" +
                 "id=" + id +
-                ", startDate=" + startDate +
                 ", courseName='" + courseName + '\'' +
+                ", startDate=" + startDate +
                 ", weekDuration=" + weekDuration +
                 ", students=" + students +
                 '}';
     }
-    //Getters and Setters
+
+    // Getters & Setters
 
     public int getId() {
         return id;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
     }
 
     public String getCourseName() {
@@ -94,11 +91,19 @@ public class Course {
         this.courseName = courseName;
     }
 
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
     public int getWeekDuration() {
         return weekDuration;
     }
 
-    public void setWeekDuration(int weekDuration) {
+    public void setWeekDuration(Integer weekDuration) {
         this.weekDuration = weekDuration;
     }
 

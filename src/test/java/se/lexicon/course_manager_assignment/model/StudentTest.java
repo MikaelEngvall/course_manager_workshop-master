@@ -1,27 +1,49 @@
 package se.lexicon.course_manager_assignment.model;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import se.lexicon.course_manager_assignment.data.sequencers.StudentSequencer;
 
 public class StudentTest {
-
     @Test
-    @DisplayName("Make sure that new students get right Id")
-    public void validateStudentIdSequencer() {
-        Student student1 = new Student("Mikael Engvall", "mikael@engvall.org", "Vallgatan 22");
-        Student student2 = new Student("Anahita Rad", "anahita@rad.org", "Lexicongatan 23");
-
-        Assertions.assertEquals(student1.getId()+1, student2.getId());
+    void getId() {
     }
 
     @Test
-    @DisplayName("Student toString() is equal to hardcoded String")
-    public void compareStudentToStringWithHardcodedString() {
-        Student student = new Student("Mikael Engvall", "mikael@engvall.org", "Vallgatan 22");
-        Assertions.assertEquals(student.toString(), "Student{id=1, name='Mikael Engvall', email='mikael@engvall.org', address='Vallgatan 22'}");
+    void getName() {
+        Student student = new Student(StudentSequencer.nextStudentId(), "Mikael Engvall", "mikael@engvall.org", "Vallgatan 22");
+        Assertions.assertEquals(1,"Mikael Engvall", student.getName());
+    }
+
+    @Test
+    void setName() {
+    }
+
+    @Test
+    void getEmail() {
+    }
+
+    @Test
+    void setEmail() {
+    }
+
+    @Test
+    void getAddress() {
+    }
+
+    @Test
+    void setAddress() {
+    }
+
+    @Test
+    void testEquals() {
+    }
+
+    @Test
+    void testHashCode() {
+    }
+
+    @Test
+    void testToString() {
     }
 }
-
-
-

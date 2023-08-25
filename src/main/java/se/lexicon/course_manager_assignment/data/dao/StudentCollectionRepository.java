@@ -6,6 +6,7 @@ import se.lexicon.course_manager_assignment.model.Student;
 import java.util.Collection;
 import java.util.HashSet;
 
+
 public class StudentCollectionRepository implements StudentDao {
 
     private Collection<Student> students;
@@ -15,46 +16,46 @@ public class StudentCollectionRepository implements StudentDao {
     }
 
     @Override
-    public String toString() {
-        return "StudentCollectionRepository{" +
-                "students=" + students +
-                '}';
-    }
-
-    @Override
     public Student createStudent(String name, String email, String address) {
         Student student = new Student(StudentSequencer.nextStudentId(), name, email, address);
-        students.add(student);
+        this.students.add(student);
         return student;
     }
 
     @Override
     public Student findByEmailIgnoreCase(String email) {
-        return null;//todo implement this
+        return null;
     }
 
     @Override
     public Collection<Student> findByNameContains(String name) {
-        return null;//todo implement this
+        return null;
     }
 
     @Override
     public Student findById(int id) {
-        return null;//todo implement this
+        return null;
     }
 
     @Override
     public Collection<Student> findAll() {
-        return null;//todo implement this
+        return students;
     }
 
     @Override
     public boolean removeStudent(Student student) {
-        return false;//todo implement this
+        return false;
     }
 
     @Override
     public void clear() {
-        this.students = new HashSet<>();//todo implement this
+        this.students = new HashSet<>();
+    }
+
+    @Override
+    public String toString() {
+        return "StudentCollectionRepository{" +
+                "students=" + students +
+                '}';
     }
 }

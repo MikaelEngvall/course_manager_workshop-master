@@ -6,10 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import se.lexicon.course_manager_assignment.data.sequencers.StudentSequencer;
-import se.lexicon.course_manager_assignment.model.Course;
 import se.lexicon.course_manager_assignment.model.Student;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import java.util.HashSet;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = {StudentCollectionRepository.class})
 public class StudentCollectionRepositoryTest {
@@ -18,36 +19,34 @@ public class StudentCollectionRepositoryTest {
     private StudentDao testObject;
 
     @Test
-    @DisplayName("Test context successfully setup")
-    void context_loads() {
-        assertFalse(testObject == null);
+    @DisplayName("Student object created from createStudent should be given consecutive id values")
+    void createNewStudentHasId() {
+        StudentCollectionRepository repo = new StudentCollectionRepository(new HashSet<Student>());
+        Student student1 = repo.createStudent("Mikael Engvall", "mikael@engvall.se", "Vallgatan 22");
+        Student student2 = repo.createStudent("Anders Engvall", "mikael@engvall.se", "Vallgatan 22");
+
+        assertEquals(1, student1.getId());
+        assertEquals(2, student2.getId());
+
+        // Uncomment these for proof that: 1, 2
+//        System.out.println(student1.getId());
+//        System.out.println(student2.getId());
     }
 
-    //Write your tests here
+    @Test
+    @DisplayName("New StudentCollectionRepository object should have students added to the Collection")
+    void createNewStudent() {
+        StudentCollectionRepository repo = new StudentCollectionRepository(new HashSet<Student>());
+        Student student1 = repo.createStudent("Mikael Engvall", "mikael@engvall.se", "Vallgatan 22");
+        Student student2 = repo.createStudent("Anders Engvall", "mikael@engvall.se", "Vallgatan 22");
 
+        System.out.println((repo.findAll()));
+        //Todo: This pretty much let us know if students have been added to the repo
+    }
 
     @AfterEach
     void tearDown() {
         testObject.clear();
         StudentSequencer.setStudentSequencer(0);
-    }
-
-    @Test
-    public void createNewStudent() {
-        Student student = new Student(StudentSequencer.nextStudentId(), "Mikael Engvall", "mik@gmail.com", "Vallis 22");
-        Student student2 = new Student(StudentSequencer.nextStudentId(), "Anders Engvall", "mik@gmail.com", "Vallis 22");
-        
-        Course course = new Course();
-        course.enrollStudent(student);
-        course.enrollStudent(student2);
-        
-        StudentCollectionRepository studentCollectionRepository = new StudentCollectionRepository(course.getStudents());
-//        studentCollectionRepository.createStudent(student.getName(), student.getEmail(), student.getAddress());
-//        
-//        course.enrollStudent(student);
-//        course.enrollStudent(student2);
-//        System.out.println(course.toString());
-        System.out.println(studentCollectionRepository.toString());
-
     }
 }
